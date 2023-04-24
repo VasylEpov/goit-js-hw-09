@@ -12,9 +12,14 @@ refs.form.addEventListener('submit', onSubmitForm);
 function onSubmitForm(event) {
   event.preventDefault();
 
-  let delay = Number(refs.firstDelay.value);
+  const delay = Number(refs.firstDelay.value);
   const step = Number(refs.stepDelay.value);
   const amount = Number(refs.amountPromises.value);
+
+  if (step < 0 || delay < 0 || amount <= 0) {
+    Notiflix.Notify.failure('Please enter valid values');
+    return;
+  }
 
   for (let i = 0; i < amount; i += 1) {
     createPromise(i + 1, delay)
